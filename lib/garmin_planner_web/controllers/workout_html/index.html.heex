@@ -1,0 +1,56 @@
+<div class="max-w-5xl mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">Workout Library</h1>
+    <.link href={~p"/workouts/new"} class="btn btn-primary">New Workout</.link>
+  </div>
+
+  <%= if @filter_tag do %>
+    <div class="mb-4 flex items-center gap-2">
+      <span class="text-sm text-base-content/60">Filtered by tag:</span>
+      <span class="badge badge-outline"><%= @filter_tag %></span>
+      <.link href={~p"/workouts"} class="btn btn-xs btn-ghost">Clear</.link>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <%= for workout <- @workouts do %>
+      <div class="card bg-base-200 shadow-sm">
+        <div class="card-body p-4">
+          <h2 class="card-title text-base"><%= workout.name %></h2>
+          <%= if workout.description do %>
+            <p class="text-sm text-base-content/60 line-clamp-2"><%= workout.description %></p>
+          <% end %>
+          <div class="flex flex-wrap gap-1 mt-1">
+            <%= for tag <- GarminPlanner.Workouts.Workout.tag_list(workout) do %>
+              <.link href={~p"/workouts?tag=#{tag}"} class="badge badge-ghost badge-sm cursor-pointer hover:badge-outline">
+                <%= tag %>
+              </.link>
+            <% end %>
+          </div>
+          <%= if workout.estimated_duration_secs do %>
+            <p class="text-xs text-base-content/50 mt-1">
+              ~<%= div(workout.estimated_duration_secs, 60) %> min
+            </p>
+          <% end %>
+          <div class="card-actions justify-end mt-2">
+            <.link href={~p"/workouts/#{workout.id}/edit"} class="btn btn-sm btn-ghost">Edit</.link>
+            <.link
+              href={~p"/workouts/#{workout.id}"}
+              method="delete"
+              data-confirm="Delete this workout?"
+              class="btn btn-sm btn-ghost btn-error"
+            >
+              Delete
+            </.link>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <%= if @workouts == [] do %>
+    <p class="text-base-content/60 text-center py-12">
+      No workouts yet. <.link href={~p"/workouts/new"} class="link">Create one</.link>.
+    </p>
+  <% end %>
+</div>

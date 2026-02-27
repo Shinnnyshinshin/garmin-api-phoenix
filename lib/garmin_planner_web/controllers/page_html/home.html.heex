@@ -1,0 +1,26 @@
+<div class="max-w-3xl mx-auto text-center py-16">
+  <h1 class="text-4xl font-bold mb-4">🏃 Garmin Workout Planner</h1>
+  <p class="text-base-content/70 text-lg mb-10">
+    Build structured running workouts, organize multi-week training plans, and push them to Garmin Connect.
+  </p>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
+    <.link href={~p"/users"} class="card bg-base-200 hover:bg-base-300 transition-colors shadow-sm">
+      <div class="card-body">
+        <h2 class="card-title">Users & Garmin Auth</h2>
+        <p class="text-sm text-base-content/60">Manage athletes, connect Garmin accounts, and configure pace zones.</p>
+      </div>
+    </.link>
+
+    <.link href={~p"/workouts"} class="card bg-base-200 hover:bg-base-300 transition-colors shadow-sm">
+      <div class="card-body">
+        <h2 class="card-title">Workout Library</h2>
+        <p class="text-sm text-base-content/60">Create and edit workouts with the YAML builder. Preview step breakdowns live.</p>
+      </div>
+    </.link>
+  </div>
+
+  <div class="mt-10 text-sm text-base-content/40">
+    <p>Phase 1 — Foundation scaffold. Training plans & Garmin push coming in Phase 2+.</p>
+  </div>
+</div>

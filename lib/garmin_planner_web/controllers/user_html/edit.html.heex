@@ -1,0 +1,20 @@
+<div class="max-w-lg mx-auto">
+  <h1 class="text-2xl font-bold mb-6">Edit User</h1>
+  <.form :let={f} for={@changeset} action={~p"/users/#{@user.id}"} method="put">
+    <div :if={@changeset.action} class="alert alert-error mb-4">
+      Please correct the errors below.
+    </div>
+    <.input field={f[:name]} type="text" label="Name" required />
+    <.input field={f[:display_email]} type="email" label="Email (optional)" />
+    <.input
+      field={f[:unit_preference]}
+      type="select"
+      label="Preferred units"
+      options={[{"Miles", "miles"}, {"Kilometers", "km"}]}
+    />
+    <div class="mt-6 flex gap-3">
+      <.button type="submit">Save Changes</.button>
+      <.link href={~p"/users"} class="btn btn-ghost">Cancel</.link>
+    </div>
+  </.form>
+</div>

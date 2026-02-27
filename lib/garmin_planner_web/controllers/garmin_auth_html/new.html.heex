@@ -1,0 +1,28 @@
+<div class="max-w-lg mx-auto">
+  <h1 class="text-2xl font-bold mb-2">Connect Garmin Account</h1>
+  <p class="text-base-content/70 mb-6">
+    Connecting as: <strong><%= @user.name %></strong>
+  </p>
+
+  <div class="alert alert-warning mb-6">
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+    </svg>
+    <div>
+      <p class="font-bold">Garmin integration pending</p>
+      <p class="text-sm">The nimrag fork hasn't been wired up yet. This form is a placeholder for Phase 2.</p>
+    </div>
+  </div>
+
+  <.form :let={f} for={%{}} action={~p"/users/#{@user.id}/garmin/connect"}>
+    <.input field={f[:username]} name="garmin[username]" type="text" label="Garmin Username" required />
+    <.input field={f[:password]} name="garmin[password]" type="password" label="Garmin Password" required />
+    <p class="text-xs text-base-content/50 mt-1">
+      Your password is used only for the OAuth exchange and is never stored.
+    </p>
+    <div class="mt-6 flex gap-3">
+      <.button type="submit">Connect Garmin</.button>
+      <.link href={~p"/users"} class="btn btn-ghost">Cancel</.link>
+    </div>
+  </.form>
+</div>
