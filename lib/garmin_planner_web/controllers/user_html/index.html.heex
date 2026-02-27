@@ -1,0 +1,65 @@
+<div class="max-w-4xl mx-auto">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">Users</h1>
+    <.link href={~p"/users/new"} class="btn btn-primary">New User</.link>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="table w-full">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Units</th>
+          <th>Garmin</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for user <- @users do %>
+          <tr>
+            <td class="font-medium"><%= user.name %></td>
+            <td class="text-base-content/60"><%= user.display_email %></td>
+            <td><%= user.unit_preference %></td>
+            <td>
+              <%= if GarminPlanner.Accounts.User.garmin_connected?(user) do %>
+                <span class="badge badge-success">Connected</span>
+              <% else %>
+                <span class="badge badge-ghost">Not connected</span>
+              <% end %>
+            </td>
+            <td class="flex gap-2">
+              <.link href={~p"/users/#{user.id}/pace_zones"} class="btn btn-xs btn-ghost">
+                Pace Zones
+              </.link>
+              <.link href={~p"/users/#{user.id}/edit"} class="btn btn-xs btn-ghost">Edit</.link>
+              <%= if GarminPlanner.Accounts.User.garmin_connected?(user) do %>
+                <.link href={~p"/users/#{user.id}/garmin/connect"} class="btn btn-xs btn-ghost">
+                  Reconnect Garmin
+                </.link>
+              <% else %>
+                <.link href={~p"/users/#{user.id}/garmin/connect"} class="btn btn-xs btn-accent">
+                  Connect Garmin
+                </.link>
+              <% end %>
+              <.link
+                href={~p"/users/#{user.id}"}
+                method="delete"
+                data-confirm="Delete this user and all their data?"
+                class="btn btn-xs btn-error btn-ghost"
+              >
+                Delete
+              </.link>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <%= if @users == [] do %>
+    <p class="text-base-content/60 text-center py-12">
+      No users yet. <.link href={~p"/users/new"} class="link">Add one</.link>.
+    </p>
+  <% end %>
+</div>
